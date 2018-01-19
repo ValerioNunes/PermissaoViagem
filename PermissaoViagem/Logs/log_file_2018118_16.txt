@@ -1,0 +1,1 @@
+18/01/2018 16:12:00 => Table 'bdpermissaoviagem.tbaprovador' doesn't exist
