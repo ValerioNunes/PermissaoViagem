@@ -2,104 +2,118 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Http.Description;
+using System.Web;
+using System.Web.Mvc;
 using PermissaoViagem.DAL;
 using PermissaoViagem.Models;
 
 namespace PermissaoViagem.Controllers
 {
-    public class LocalsController : ApiController
+    public class LocalsController : Controller
     {
         private PermissaoViagemContext db = new PermissaoViagemContext();
 
-        // GET: api/Locals
-        public IQueryable<Local> GetLocals()
+        // GET: Locals
+        public ActionResult Index()
         {
-            return db.Locais;
+            return View(db.Locais.ToList());
         }
 
-        // GET: api/Locals/5
-        [ResponseType(typeof(Local))]
-        public IHttpActionResult GetLocal(int id)
+        // GET: Locals/Details/5
+        public ActionResult Details(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Local local = db.Locais.Find(id);
             if (local == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
-
-            return Ok(local);
+            return View(local);
         }
 
-        // PUT: api/Locals/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutLocal(int id, Local local)
+        // GET: Locals/Create
+        public ActionResult Create()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            return View();
+        }
 
-            if (id != local.Id)
+        // POST: Locals/Create
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,Nome")] Local local)
+        {
+            if (ModelState.IsValid)
             {
-                return BadRequest();
-            }
-
-            db.Entry(local).State = EntityState.Modified;
-
-            try
-            {
+                db.Locais.Add(local);
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LocalExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToAction("Index");
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return View(local);
         }
 
-        // POST: api/Locals
-        [ResponseType(typeof(Local))]
-        public IHttpActionResult PostLocal(Local local)
+        // GET: Locals/Edit/5
+        public ActionResult Edit(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return BadRequest(ModelState);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            db.Locais.Add(local);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = local.Id }, local);
-        }
-
-        // DELETE: api/Locals/5
-        [ResponseType(typeof(Local))]
-        public IHttpActionResult DeleteLocal(int id)
-        {
             Local local = db.Locais.Find(id);
             if (local == null)
             {
-                return NotFound();
+                return HttpNotFound();
             }
+            return View(local);
+        }
 
+        // POST: Locals/Edit/5
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,Nome")] Local local)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(local).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(local);
+        }
+
+        // GET: Locals/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Local local = db.Locais.Find(id);
+            if (local == null)
+            {
+                return HttpNotFound();
+            }
+            return View(local);
+        }
+
+        // POST: Locals/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Local local = db.Locais.Find(id);
             db.Locais.Remove(local);
             db.SaveChanges();
-
-            return Ok(local);
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -109,11 +123,6 @@ namespace PermissaoViagem.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        private bool LocalExists(int id)
-        {
-            return db.Locais.Count(e => e.Id == id) > 0;
         }
     }
 }

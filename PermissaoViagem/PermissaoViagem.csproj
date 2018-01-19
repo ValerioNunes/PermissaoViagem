@@ -230,6 +230,11 @@
     <Content Include="Views\Aprovadores\Details.cshtml" />
     <Content Include="Views\Aprovadores\Edit.cshtml" />
     <Content Include="Views\Aprovadores\Index.cshtml" />
+    <Content Include="Views\Locals\Create.cshtml" />
+    <Content Include="Views\Locals\Delete.cshtml" />
+    <Content Include="Views\Locals\Details.cshtml" />
+    <Content Include="Views\Locals\Edit.cshtml" />
+    <Content Include="Views\Locals\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
