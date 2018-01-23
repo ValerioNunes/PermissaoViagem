@@ -50,7 +50,7 @@ namespace PermissaoViagem.DAL
                 
             StatusDefault.ForEach(x => context.Status.Add(x));
             TransporteDefault.ForEach(x => context.Transportes.Add(x));
-            LocalDefault.ForEach(x => context.Locais.Add(x));
+            LocalDefault.ForEach(x => context.Locals.Add(x));
 
             context.SaveChanges();
         }

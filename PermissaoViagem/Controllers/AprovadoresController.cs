@@ -53,8 +53,7 @@ namespace PermissaoViagem.Controllers
         public ActionResult Create()
         {
             var listaEmpregados = db.Empregados.ToList();
-            listaEmpregados = listaEmpregados.Where(x => x.NivelGerencial.Contains("Manager") ||
-                                                    x.NivelGerencial.Contains("Supervisor")).OrderBy(x => x.Nome).ToList();
+            listaEmpregados = listaEmpregados.Where(x => x.NivelGerencial.Contains("Manager")).OrderBy(x => x.Nome).ToList();
             ViewBag.EmpregadoId = new SelectList(listaEmpregados, "Id", "Nome");
             return View();
         }
@@ -118,7 +117,7 @@ namespace PermissaoViagem.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
     
-            Aprovador aprovador = db.Aprovadores.Where(x => x.Id == id).Include(x => x.Empregado).FirstOrDefault();
+             Aprovador aprovador = db.Aprovadores.Where(x => x.Id == id).Include(x => x.Empregado).FirstOrDefault();
 
             if (aprovador == null)
             {

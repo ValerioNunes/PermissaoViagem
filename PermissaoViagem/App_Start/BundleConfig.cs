@@ -13,6 +13,8 @@ namespace PermissaoViagem
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
+            bundles.Add(new ScriptBundle("~/bundles/jqueryMask").Include(
+                "~/Scripts/jquery.mask.js"));
 
             // Use a versão em desenvolvimento do Modernizr para desenvolver e aprender. Em seguida, quando estiver
             // pronto para a produção, utilize a ferramenta de build em https://modernizr.com para escolher somente os testes que precisa.

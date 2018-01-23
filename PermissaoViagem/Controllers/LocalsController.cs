@@ -18,7 +18,7 @@ namespace PermissaoViagem.Controllers
         // GET: Locals
         public ActionResult Index()
         {
-            return View(db.Locais.ToList());
+            return View(db.Locals.ToList());
         }
 
         // GET: Locals/Details/5
@@ -28,7 +28,7 @@ namespace PermissaoViagem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Local local = db.Locais.Find(id);
+            Local local = db.Locals.Find(id);
             if (local == null)
             {
                 return HttpNotFound();
@@ -51,7 +51,7 @@ namespace PermissaoViagem.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Locais.Add(local);
+                db.Locals.Add(local);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -66,7 +66,7 @@ namespace PermissaoViagem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Local local = db.Locais.Find(id);
+            Local local = db.Locals.Find(id);
             if (local == null)
             {
                 return HttpNotFound();
@@ -97,7 +97,7 @@ namespace PermissaoViagem.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Local local = db.Locais.Find(id);
+            Local local = db.Locals.Find(id);
             if (local == null)
             {
                 return HttpNotFound();
@@ -110,8 +110,8 @@ namespace PermissaoViagem.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Local local = db.Locais.Find(id);
-            db.Locais.Remove(local);
+            Local local = db.Locals.Find(id);
+            db.Locals.Remove(local);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -167,6 +167,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LocalsController.cs" />
     <Compile Include="Controllers\PlanilhaController.cs" />
+    <Compile Include="Controllers\SolicitacaoViagemsController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\TransportesController.cs" />
     <Compile Include="DAL\PermissaoViagemContext.cs" />
@@ -203,6 +204,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.mask.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -210,7 +212,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -235,6 +239,10 @@
     <Content Include="Views\Locals\Details.cshtml" />
     <Content Include="Views\Locals\Edit.cshtml" />
     <Content Include="Views\Locals\Index.cshtml" />
+    <Content Include="Views\SolicitacaoViagems\Index.cshtml" />
+    <Content Include="Views\SolicitacaoViagems\Create.cshtml" />
+    <Content Include="Views\SolicitacaoViagems\Delete.cshtml" />
+    <Content Include="Views\SolicitacaoViagems\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

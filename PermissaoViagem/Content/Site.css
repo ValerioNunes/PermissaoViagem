@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.largeControl {
+    width: 500px !important;
+    height: 500px !important;
+}

@@ -1,1 +1,0 @@
-19/01/2018 08:40:23 => Unable to connect to any of the specified MySQL hosts.

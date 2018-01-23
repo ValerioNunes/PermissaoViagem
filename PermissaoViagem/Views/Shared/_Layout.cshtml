@@ -29,6 +29,12 @@
         </div>
     </div>
     <div class="container body-content">
+         
+            @if(ViewBag.Message != null)
+            {
+                <p>ViewBag.Message</p>
+            }
+        
         @RenderBody()
         <hr />
         <footer>
@@ -37,7 +43,11 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryMask")
     @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript">
+        $('.date_time').mask('00/00/0000 00:00:00');
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

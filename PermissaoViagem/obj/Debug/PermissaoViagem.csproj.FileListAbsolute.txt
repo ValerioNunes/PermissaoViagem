@@ -59,4 +59,3 @@ c:\users\valerio\source\repos\PermissaoViagem\PermissaoViagem\bin\System.Net.Htt
 c:\users\valerio\source\repos\PermissaoViagem\PermissaoViagem\bin\System.Web.Http.xml
 c:\users\valerio\source\repos\PermissaoViagem\PermissaoViagem\bin\System.Web.Http.WebHost.xml
 c:\users\valerio\source\repos\PermissaoViagem\PermissaoViagem\bin\System.Linq.Dynamic.dll
-C:\Users\valerio\source\repos\PermissaoViagem\PermissaoViagem\obj\Debug\PermissaoViagem.csprojResolveAssemblyReference.cache
