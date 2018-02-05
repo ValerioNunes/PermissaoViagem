@@ -1,0 +1,107 @@
+﻿@model PermissaoViagem.Models.SolicitacaoViagem
+@{
+    ViewBag.Title = "Solicitar Viagem";
+}
+
+<h2>@ViewBag.Title</h2>
+<div class="content">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+
+        <div class="form-horizontal">
+            <h4>Viagem</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label class="control-label col-md-2">Solicitante: </label>
+                <div class="col-md-10">
+                    @Html.DropDownList("EmpregadoId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EmpregadoId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Origem: </label>
+                <div class="col-md-10">
+                    @Html.DropDownList("OrigemId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OrigemId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Destino: </label>
+                <div class="col-md-10">
+                    @Html.DropDownList("DestinoId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DestinoId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Transporte: </label>
+                <div class="col-md-10">
+                    @Html.DropDownList("TransporteId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TransporteId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Aprovador: </label>
+                <div class="col-md-10">
+                    @Html.DropDownList("AprovadorId", null, htmlAttributes: new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Hora de Partida: </label>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.DataPartida, null, htmlAttributes: new { @class = "form-control date-timepicker date_time" })
+                    @Html.ValidationMessageFor(model => model.DataPartida, "O campo é obrigatório", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2">Hora de Chegada: </label>
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.DataChegadaPrevista, null, htmlAttributes: new { @class = "form-control date-timepicker date_time" })
+                    @Html.ValidationMessageFor(model => model.DataChegadaPrevista, "O campo é obrigatório", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="control-label col-md-2">Viajantes: </label>
+                <div class="col-md-10">
+                    @Html.ListBox("ViajantesId", null, new { @class = "largeControl" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2 col-md-10">
+                    <input type="submit" value="Cadastrar" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Voltar para Lista de Solicitações", "Index")
+    </div>
+</div>
+    <script type="text/javascript">
+        function format(member) {
+            member = parseInt(member) < 10 ? "0" + member : member;
+            return member;
+        }
+        var today = new Date();
+        var formatado = format(today.getDate()) + "/" +
+            format(parseInt(today.getMonth()) + 1) + "/"
+            + today.getFullYear() + " " +
+            format(today.getHours()) + ":" +
+            format(today.getMinutes()) + ":" +
+            format(today.getSeconds());
+        document.getElementById("DataPartida").value = formatado;
+        document.getElementById("DataChegadaPrevista").value = formatado;
+    </script>
+
+

@@ -1,0 +1,26 @@
+﻿@model PermissaoViagem.Models.Aprovador
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Aprovador</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Empregado.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empregado.Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Voltar para a lista", "Index")
+</p>

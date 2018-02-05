@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="content">
+    <div class="row">
+        @using (Html.BeginForm("Upload", "Planilha", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <fieldset class="jumbotron">
+                <legend>Upload Planilha Empregados</legend>
+                <div class="form-control">
+                    @Html.TextBox("file", "", new { type = "file" })
+                </div>
+                <div class="text-center">
+                    <input type="submit" value="Carregar" class="btn btn-primary" />
+                </div>
+                <br /><br />
+                <span class="alert @if (ViewBag.Status != null && ViewBag.Status.Equals("Load_ok"))
+                {
+                                @Html.Raw("alert-success")
+                }
+                else if ((ViewBag.Status != null && ViewBag.Status.Equals("Load_wrong"))
+                  || (ViewBag.Status != null && ViewBag.Status.Equals("Load_fail")))
+                {
+                                 @Html.Raw("alert-danger")
+                }">@ViewBag.Message</span>
+
+            </fieldset>
+        }
+    </div>
+
+</div>

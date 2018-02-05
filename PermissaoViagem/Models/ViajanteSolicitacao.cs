@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
 
 namespace PermissaoViagem.Models
 {
@@ -17,8 +19,7 @@ namespace PermissaoViagem.Models
 
         [Key]
         [Column("idsolicitacaoviagem", Order = 2)]
-        public int SolicitacaoViagemId { get; set; }
+        public int SolicitacaoViagemId { get; set; }      
         public SolicitacaoViagem SolicitacaoViagem { get; set; }
-
     }
 }

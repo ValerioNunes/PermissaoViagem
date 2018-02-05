@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+
+}
+
+<div class="jumbotron">
+    <h1>Permissão Viagem</h1>
+
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Dados dos Empregados</h2>
+        <p>Uma planilha do excel é utilizada para atualizar os dados dos empregados.</p>
+        @Html.ActionLink("Cadastro Planilha", "Index", "Planilha", new { }, new { @class = "btn btn-primary btn-lg" })
+    </div>
+    <div class="col-md-4">
+        <h2>Aprovador de Solicitação</h2>
+        <p>Somente Supervisores e Gerentes, devidamente treinados na aplicação, podem aprovar uma solicitação de viagem.</p>
+        @Html.ActionLink("Cadastrar Aprovador de Solicitação", "Index", "Aprovadores", new { }, new { @class = "btn btn-primary btn-lg" })
+    </div>
+    <div class="col-md-4">
+        <h2>Localidades</h2>
+        <p>...</p>
+        @Html.ActionLink("Cadastrar Localidades", "Index", "Locals", new { }, new { @class = "btn btn-primary btn-lg" })
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Solicitar Viagem</h2>
+        <p>Solicite viagem para seu Gerente</p>
+        @Html.ActionLink("Solicitar Viagem", "Index", "SolicitacaoViagems", new { }, new { @class = "btn btn-primary btn-lg" })
+    </div>
+    <div class="col-md-4">
+        
+    </div>
+    <div class="col-md-4">
+       
+    </div>
+
+
+</div>

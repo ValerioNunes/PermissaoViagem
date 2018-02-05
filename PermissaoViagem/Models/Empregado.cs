@@ -18,8 +18,10 @@ namespace PermissaoViagem.Models
         public String Nome { get; set; }
         [Column("email")]
         public String Email  { get; set; }
-        [Column("departamento")]
-        public String Departamento { get; set; }
+        [Column("gerencia")]
+        public String Gerencia { get; set; }
+        [Column("supervisao")]
+        public String Supervisao { get; set; }
         [Column("managereriallevel")]
         public String NivelGerencial  { get; set; }
 

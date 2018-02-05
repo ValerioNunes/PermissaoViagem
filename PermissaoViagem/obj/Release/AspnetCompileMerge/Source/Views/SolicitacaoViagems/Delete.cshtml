@@ -1,0 +1,40 @@
+﻿@model PermissaoViagem.Models.SolicitacaoViagem
+
+@{
+    ViewBag.Title = "Deletar Solicitacao de Viagem";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Local</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Hora de Partida
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataPartida)
+        </dd>
+
+        <dt>
+            Solicitante
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Empregado.Nome)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
+

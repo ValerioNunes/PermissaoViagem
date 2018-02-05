@@ -24,7 +24,7 @@ namespace PermissaoViagem.Controllers
             var solicitacaoViagems = db.SolicitacaoViagems.Include(s => s.Destino)
                                                           .Include(s => s.Origem)
                                                           .Include(s => s.Transporte)
-                                                          .Include(s => s.Empregado)
+                                                          .Include(s => s.Solicitante)
                                                           .Include(s => s.AprovadorSolicitacaoId)
                                                           .Include(s => s.ViajanteSolicitacaoId).ToList();
             FillObjects(solicitacaoViagems);
@@ -107,7 +107,7 @@ namespace PermissaoViagem.Controllers
             ViewBag.DestinoId = new SelectList(db.Locals, "Id", "Nome", solicitacaoViagem.DestinoId);
             ViewBag.OrigemId = new SelectList(db.Locals, "Id", "Nome", solicitacaoViagem.OrigemId);
             ViewBag.TransporteId = new SelectList(db.Transportes, "Id", "Nome", solicitacaoViagem.TransporteId);
-            ViewBag.EmpregadoId = new SelectList(empregadosOrdenados, "Id", "Nome", solicitacaoViagem.EmpregadoId);
+            ViewBag.EmpregadoId = new SelectList(empregadosOrdenados, "Id", "Nome", solicitacaoViagem.SolicitanteId);
             ViewBag.AprovadorId = new SelectList(aprovadores, "Id", "Empregado.Nome", AprovadorId);
             ViewBag.ViajantesId = new MultiSelectList(empregadosOrdenados, "Id", "Nome", ViajantesId);
 
@@ -124,7 +124,7 @@ namespace PermissaoViagem.Controllers
             SolicitacaoViagem solicitacaoViagem = db.SolicitacaoViagems.Where(x => x.Id == id).Include(s => s.Destino)
                                                                                               .Include(s => s.Origem)
                                                                                               .Include(s => s.Transporte)
-                                                                                              .Include(s => s.Empregado)
+                                                                                              .Include(s => s.Solicitante)
                                                                                               .Include(s => s.AprovadorSolicitacaoId)
                                                                                               .Include(s => s.ViajanteSolicitacaoId).FirstOrDefault();
             if (solicitacaoViagem == null)
@@ -145,7 +145,7 @@ namespace PermissaoViagem.Controllers
             ViewBag.DestinoId = new SelectList(db.Locals, "Id", "Nome", solicitacaoViagem.DestinoId);
             ViewBag.OrigemId = new SelectList(db.Locals, "Id", "Nome", solicitacaoViagem.OrigemId);
             ViewBag.TransporteId = new SelectList(db.Transportes, "Id", "Nome", solicitacaoViagem.TransporteId);
-            ViewBag.EmpregadoId = new SelectList(empregadosOrdenados, "Id", "Nome", solicitacaoViagem.EmpregadoId);
+            ViewBag.EmpregadoId = new SelectList(empregadosOrdenados, "Id", "Nome", solicitacaoViagem.SolicitanteId);
 
 
             ViewBag.AprovadorId = new SelectList(aprovadores, "Id", "Empregado.Nome", aprovador);
@@ -199,7 +199,7 @@ namespace PermissaoViagem.Controllers
             ViewBag.DestinoId = new SelectList(db.Locals, "Id", "Nome", solicitacaoViagem.DestinoId);
             ViewBag.OrigemId = new SelectList(db.Locals, "Id", "Nome", solicitacaoViagem.OrigemId);
             ViewBag.TransporteId = new SelectList(db.Transportes, "Id", "Nome", solicitacaoViagem.TransporteId);
-            ViewBag.EmpregadoId = new SelectList(empregadosOrdenados, "Id", "Nome", solicitacaoViagem.EmpregadoId);
+            ViewBag.EmpregadoId = new SelectList(empregadosOrdenados, "Id", "Nome", solicitacaoViagem.SolicitanteId);
             ViewBag.AprovadorId = new SelectList(aprovadores, "Id", "Empregado.Nome", AprovadorId);
             ViewBag.ViajantesId = new SelectList(empregadosOrdenados, "Id", "Nome");
 
@@ -214,7 +214,7 @@ namespace PermissaoViagem.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             SolicitacaoViagem solicitacaoViagem = db.SolicitacaoViagems.Where(x => x.Id == id).
-                                                     Include(x => x.Empregado).FirstOrDefault();
+                                                     Include(x => x.Solicitante).FirstOrDefault();
             if (solicitacaoViagem == null)
             {
                 return HttpNotFound();
@@ -232,7 +232,7 @@ namespace PermissaoViagem.Controllers
             SolicitacaoViagem solicitacaoViagem = db.SolicitacaoViagems.Where(x => x.Id == id).Include(s => s.Destino)
                                                                                               .Include(s => s.Origem)
                                                                                               .Include(s => s.Transporte)
-                                                                                              .Include(s => s.Empregado)
+                                                                                              .Include(s => s.Solicitante)
                                                                                               .Include(s => s.AprovadorSolicitacaoId)
                                                                                               .Include(s => s.ViajanteSolicitacaoId).FirstOrDefault();
             List<SolicitacaoViagem> lvSolicitation = new List<SolicitacaoViagem>();

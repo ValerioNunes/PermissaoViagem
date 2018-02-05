@@ -15,8 +15,7 @@ namespace PermissaoViagem.Models
         [Column("idempregado")]
         public int EmpregadoId { get; set; }
         public Empregado Empregado { get; set; }
-
-        public ICollection<AprovadorSolicitacao> AprovadorSolicitacao { get; set; }
+        
 
     }
 }

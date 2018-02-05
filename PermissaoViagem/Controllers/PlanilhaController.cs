@@ -77,7 +77,8 @@ namespace PermissaoViagem.Controllers
                     var matricula       = linha[3].ToString();
                     var nome            = linha[8].ToString();
                     var email           = linha[20].ToString();
-                    var departamento    = linha[15].ToString();
+                    var gerencia        = linha[40].ToString();
+                    var supervisao      = linha[41].ToString();
                     var nivelgerencial  = linha[25].ToString();
 
                     if (!string.IsNullOrEmpty(matricula) && !string.IsNullOrEmpty(nome))
@@ -86,7 +87,8 @@ namespace PermissaoViagem.Controllers
                             empregado.Id                = Int32.Parse(matricula);
                             empregado.Nome              = nome;
                             empregado.Email             = email;
-                            empregado.Departamento      = departamento;
+                            empregado.Gerencia          = gerencia;
+                            empregado.Supervisao        = supervisao; 
                             empregado.NivelGerencial    = nivelgerencial;
                         empregados.Add(empregado);
                     }
@@ -100,7 +102,8 @@ namespace PermissaoViagem.Controllers
                     {
                         dadosAntigos.Nome = x.Nome;
                         dadosAntigos.Email = x.Email;
-                        dadosAntigos.Departamento = x.Departamento;
+                        dadosAntigos.Gerencia = x.Gerencia;
+                        dadosAntigos.Supervisao = x.Supervisao;
                         dadosAntigos.NivelGerencial = x.NivelGerencial;
                     }
                     else
