@@ -34,8 +34,8 @@ namespace PermissaoViagem.Models
         public Local Destino { get; set; }
                  
         [Column("idsolicitante")]
-        public int SolicitanteId { get; set; }
-        public Empregado Solicitante { get; set; }
+        public int EmpregadoId { get; set; }
+        public Empregado Empregado { get; set; }
 
 
         public ICollection<ViajanteSolicitacao>  ViajanteSolicitacaoId { get; set; }

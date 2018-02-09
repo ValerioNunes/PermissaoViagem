@@ -17,7 +17,7 @@ namespace PermissaoViagem.Controllers
     public class DadosParaSolicitacaoViagemAPIController : ApiController
     {
         private PermissaoViagemContext db = new PermissaoViagemContext();
-
+        private Mensagem msg = new Mensagem();
         // GET: api/DadosParaSolicitacaoViagemAPI
         public IEnumerable<string> Get()
         {
@@ -32,7 +32,7 @@ namespace PermissaoViagem.Controllers
                                                                                 .Include(s => s.Destino)
                                                                                 .Include(s => s.Origem)
                                                                                 .Include(s => s.Transporte)
-                                                                                .Include(s => s.Solicitante)
+                                                                                .Include(s => s.Empregado)
                                                                                 .Include(s => s.AprovadorSolicitacaoId)
                                                                                 .Include(s => s.ViajanteSolicitacaoId).ToList();
 
@@ -69,9 +69,18 @@ namespace PermissaoViagem.Controllers
                     solicitacaoViagem.DestinoId = dados.Destino;
                     solicitacaoViagem.OrigemId = dados.Origem;
                     solicitacaoViagem.TransporteId = dados.Transporte;
-                    solicitacaoViagem.SolicitanteId = dados.Solicitante;
+                    solicitacaoViagem.EmpregadoId = dados.Solicitante;
 
                     db.SolicitacaoViagems.Add(solicitacaoViagem);
+
+
+                    foreach (var telefone in dados.Contatos)
+                    {
+                        Contato contato = new Contato();
+                        contato.SolicitacaoViagemId = solicitacaoViagem.Id;
+                        contato.Telefone = telefone;
+                        db.Contatos.Add(contato);
+                    }
 
 
                     foreach (var matricula in dados.Viajantes)
@@ -90,6 +99,9 @@ namespace PermissaoViagem.Controllers
                     db.AprovadorSolicitacao.Add(aprovadorSolicitacao);
 
                     db.SaveChanges();
+
+                    msg.AguardandoAnalise(solicitacaoViagem.Id);
+
                     return Json("Sua solicitação foi cadastrada com sucesso!");
                 }
                 catch (Exception e)
@@ -104,7 +116,7 @@ namespace PermissaoViagem.Controllers
             return Ok();
         }
 
-
+      
 
         // PUT: api/DadosParaSolicitacaoViagemAPI/5
         public void Put(int id, [FromBody]string value)

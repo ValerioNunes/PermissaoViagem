@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PermissaoViagem.DAL;
+using PermissaoViagem.Extensions;
 using PermissaoViagem.Models;
 
 namespace PermissaoViagem.Controllers
@@ -37,41 +38,48 @@ namespace PermissaoViagem.Controllers
         }
 
         // PUT: api/Empregadoes/5
+        [HttpOptions, HttpPut]
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutEmpregado(int id, Empregado empregado)
+        public IHttpActionResult PutEmpregado(int id, [FromBody]Empregado empregado)
         {
-            if (!ModelState.IsValid)
+            if (empregado != null)
             {
-                return BadRequest(ModelState);
-            }
-
-            if (id != empregado.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(empregado).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EmpregadoExists(id))
+                DebugLog.Logar((empregado == null).ToString());
+                if (!ModelState.IsValid)
                 {
-                    return NotFound();
+                    return BadRequest(ModelState);
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return StatusCode(HttpStatusCode.NoContent);
+                if (id != empregado.Id)
+                {
+                    return BadRequest();
+                }
+
+                db.Entry(empregado).State = EntityState.Modified;
+
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!EmpregadoExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                      //  DebugLog.Logar("empregado não existe!");
+                    }
+                }
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            return Ok();
+            
         }
 
         // POST: api/Empregadoes
+        [HttpOptions, HttpPost]
         [ResponseType(typeof(Empregado))]
         public IHttpActionResult PostEmpregado(Empregado empregado)
         {
@@ -80,12 +88,17 @@ namespace PermissaoViagem.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Empregados.Add(empregado);
+            if (EmpregadoExists(empregado.Id))
+            {
+                DebugLog.Logar("Já existe");
+            }
+                //db.Empregados.Add(empregado);
 
             try
             {
                 db.SaveChanges();
             }
+
             catch (DbUpdateException)
             {
                 if (EmpregadoExists(empregado.Id))

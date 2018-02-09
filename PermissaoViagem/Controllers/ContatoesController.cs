@@ -25,15 +25,9 @@ namespace PermissaoViagem.Controllers
 
         // GET: api/Contatoes/5
         [ResponseType(typeof(Contato))]
-        public IHttpActionResult GetContato(int id)
+        public IQueryable<Contato> GetContato(int id)
         {
-            Contato contato = db.Contatos.Find(id);
-            if (contato == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(contato);
+            return db.Contatos.Where(x => x.SolicitacaoViagemId == id);
         }
 
         // PUT: api/Contatoes/5

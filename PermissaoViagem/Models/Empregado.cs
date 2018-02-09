@@ -24,7 +24,8 @@ namespace PermissaoViagem.Models
         public String Supervisao { get; set; }
         [Column("managereriallevel")]
         public String NivelGerencial  { get; set; }
-
+        [Column("telefone")]
+        public String Telefone { get; set; }
         //public ICollection<ViajanteSolicitacao> ViajanteSolicitacao { get; set; }
     }
 }

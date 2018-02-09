@@ -1,4 +1,5 @@
 ﻿using PermissaoViagem.DAL;
+using PermissaoViagem.Extension;
 using PermissaoViagem.Extensions;
 using PermissaoViagem.Models;
 using System;
@@ -41,6 +42,9 @@ namespace PermissaoViagem.Controllers
             dados.Local = db.Locals.ToList();
             dados.Transporte = db.Transportes.ToList();
             dados.Status = db.Status.ToList();
+
+
+
             return Json(dados);
         }
 

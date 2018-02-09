@@ -30,11 +30,11 @@ namespace PermissaoViagem.Controllers
 
             var solicitacaoviagem = db.SolicitacaoViagems.Include(s => s.Destino).Include(s => s.Origem)
                                                                                 .Include(s => s.Transporte)
-                                                                                .Include(s => s.Solicitante)
+                                                                                .Include(s => s.Empregado)
                                                                                 .Include(s => s.AprovadorSolicitacaoId)
                                                                                 .Include(s => s.ViajanteSolicitacaoId).ToList();
             FillObjects(solicitacaoviagem);
-            var minhasSolicitacoes = solicitacaoviagem.Where(x => x.SolicitanteId == id ||
+            var minhasSolicitacoes = solicitacaoviagem.Where(x => x.EmpregadoId == id ||
                                                              x.ViajanteSolicitacaoId.Select(y => y.EmpregadoId).Contains(id) || x.AprovadorSolicitacaoId.Select(k => k.Aprovador.Empregado.Id).Contains(id)).ToList();
 
             List<MinhasSolicitacoes> minhasSolicitacoesNaTela = new List<MinhasSolicitacoes>();
@@ -47,13 +47,14 @@ namespace PermissaoViagem.Controllers
                 minhaSolicitacao.Partida = x.DataPartida;
                 minhaSolicitacao.Origem = x.Origem.Nome;
                 minhaSolicitacao.Destino = x.Destino.Nome;
-                minhaSolicitacao.Solicitante = x.Solicitante.Nome;
+                minhaSolicitacao.Solicitante = x.Empregado.Nome;
                 minhaSolicitacao.Transporte = x.Transporte.Nome;
                 minhaSolicitacao.Status = x.AprovadorSolicitacaoId.FirstOrDefault().Status.Nome;
                 minhasSolicitacoesNaTela.Add(minhaSolicitacao);
-            });                      
+            });
 
 
+            minhasSolicitacoesNaTela = minhasSolicitacoesNaTela.OrderBy(x => x.Id).Reverse().ToList();
 
             return Json(minhasSolicitacoesNaTela);
 

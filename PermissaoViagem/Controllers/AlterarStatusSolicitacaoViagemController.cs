@@ -16,6 +16,8 @@ namespace PermissaoViagem.Controllers
     public class AlterarStatusSolicitacaoViagemController : ApiController
     {
         private PermissaoViagemContext db = new PermissaoViagemContext();
+        private Mensagem msg = new Mensagem();
+
         // GET: api/AlterarStatusSolicitacaoViagem
         public IEnumerable<string> Get()
         {
@@ -37,11 +39,13 @@ namespace PermissaoViagem.Controllers
             {
                 try
                 {
+                    
+
                     List<SolicitacaoViagem> solicitacaoViagem = db.SolicitacaoViagems.Where(x => x.Id == dados.SolicitacaoViagemId)
                                                                                     .Include(s => s.Destino)
                                                                                     .Include(s => s.Origem)
                                                                                     .Include(s => s.Transporte)
-                                                                                    .Include(s => s.Solicitante)
+                                                                                    .Include(s => s.Empregado)
                                                                                     .Include(s => s.AprovadorSolicitacaoId)
                                                                                     .Include(s => s.ViajanteSolicitacaoId).ToList();
                 if (solicitacaoViagem.FirstOrDefault() == null)
@@ -53,6 +57,12 @@ namespace PermissaoViagem.Controllers
                 FillObjects(solicitacaoViagem);
                 AprovadorSolicitacao StatusAnterior = solicitacaoViagem.FirstOrDefault().AprovadorSolicitacaoId.FirstOrDefault();
 
+
+                if (StatusAnterior == null)
+                {
+                    return NotFound();
+                }
+
                 AprovadorSolicitacao StatusNovo = new AprovadorSolicitacao();
                 StatusNovo.SolicitacaoViagemId = dados.SolicitacaoViagemId;
                 StatusNovo.StatusId = dados.StatusId;
@@ -60,7 +70,13 @@ namespace PermissaoViagem.Controllers
                 StatusNovo.DataStatus = DateTime.Now;
 
                 db.AprovadorSolicitacao.Add(StatusNovo);
+                    
+
                 db.SaveChanges();
+
+
+                msg.MudancaDeStatus(dados.SolicitacaoViagemId);
+                    
                 return Json("Sua solicitação foi cadastrada com sucesso!");
                 }catch (Exception e)
                 {
@@ -70,7 +86,7 @@ namespace PermissaoViagem.Controllers
                     return Json("Erro ao cadastrar solicitação!");
                 }
             }
-            return Json("Erro ao cadastrar solicitação!");
+            return Json("Erro ao cadastrar solicitação! dados = null");
         }
 
         
@@ -94,12 +110,12 @@ namespace PermissaoViagem.Controllers
                     aprovadorSolicitacao.Aprovador = db.Aprovadores.Where(y => y.Id == aprovadorSolicitacao.AprovadorId).
                     Include(y => y.Empregado).FirstOrDefault();
                     aprovadorSolicitacao.Status = db.Status.Where(y => y.Id == aprovadorSolicitacao.StatusId).FirstOrDefault();
-                    aprovadorSolicitacao.SolicitacaoViagem = null;
+  
                 }
                 foreach (var viajanteSolicitacao in x.ViajanteSolicitacaoId)
                 {
                     viajanteSolicitacao.Empregado = db.Empregados.Where(y => y.Id == viajanteSolicitacao.EmpregadoId).FirstOrDefault();
-                    viajanteSolicitacao.SolicitacaoViagem = null;
+                    
                 }
             });
         }

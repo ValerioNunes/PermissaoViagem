@@ -14,9 +14,10 @@ namespace PermissaoViagem.DAL
         {
             var StatusDefault = new List<Status>
             {
-                new Status {Id = 1, Nome = "AGUARDANDO"},
-                new Status {Id = 2, Nome = "NAO_APROVADO"},
-                new Status {Id = 3, Nome = "APROVADO"}
+                new Status {Id = 1, Nome = "aguardando"},
+                new Status {Id = 2, Nome = "nao_aprovado"},
+                new Status {Id = 3, Nome = "aprovado"},
+                 new Status{Id = 4, Nome = "encerrado"}
             };
 
             var TransporteDefault = new List<Transporte>
