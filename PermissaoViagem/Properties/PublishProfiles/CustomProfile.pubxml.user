@@ -22,13 +22,13 @@ ao editar este arquivo MSBuild. Para saber mais sobre isso, visite https://go.mi
       <publishTime>01/17/2018 14:36:46</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>03/09/2018 10:09:04</publishTime>
+      <publishTime>03/09/2018 10:27:22</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>03/09/2018 10:09:04</publishTime>
+      <publishTime>03/09/2018 10:27:22</publishTime>
     </File>
     <File Include="bin/App_global.asax.pdb">
-      <publishTime>03/09/2018 10:09:04</publishTime>
+      <publishTime>03/09/2018 10:27:22</publishTime>
     </File>
     <File Include="bin/de/Microsoft.Data.Edm.resources.dll">
       <publishTime>11/20/2015 16:32:22</publishTime>
@@ -460,7 +460,7 @@ ao editar este arquivo MSBuild. Para saber mais sobre isso, visite https://go.mi
       <publishTime>01/17/2018 14:36:23</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>03/09/2018 10:08:57</publishTime>
+      <publishTime>03/09/2018 10:27:17</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>01/17/2018 14:36:23</publishTime>
