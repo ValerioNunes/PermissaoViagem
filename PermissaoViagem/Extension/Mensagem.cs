@@ -28,7 +28,7 @@ namespace PermissaoViagem.Extension
             client = new System.Net.Mail.SmtpClient();
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
-            client.Credentials = new System.Net.NetworkCredential("permissaoviagem@gmail.com", "solicitacaoviagem");
+            client.Credentials = new System.Net.NetworkCredential("permissaoviagem@gmail.com", "xxxxxxxxxxxxxx");
         }
 
         public void AguardandoAnalise(int id)
@@ -227,8 +227,8 @@ namespace PermissaoViagem.Extension
         
         private void SMS(List<Empregado> Empregados, String msg) {
 
-            const string accountSid = "ACe8df82ae66422256f834d0d0e4fee440";
-            const string authToken =  "5d472ca642930c7b5e524bcaaadd53fe";
+            const string accountSid = "Axxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+            const string authToken =  "5xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
            
             String SMS = msg.Replace("<h1>", " ").Replace("</h1>", " ").Replace("<br/>", " ").Replace("<h2>", " ").Replace("</h2>", " ");
             DebugLog.Logar(SMS);
@@ -243,7 +243,7 @@ namespace PermissaoViagem.Extension
 
                             var message = MessageResource.Create(
                                 new PhoneNumber("+55" + x.Telefone),
-                                from: new PhoneNumber("+19524795118"),
+                                from: new PhoneNumber("+xxxxxxxxxxx"),
                                 body: "Permissão de Viagem: +1 Notificação"
                             );
                             }
