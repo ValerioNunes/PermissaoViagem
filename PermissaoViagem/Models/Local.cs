@@ -13,5 +13,7 @@ namespace PermissaoViagem.Models
         public int Id { get; set; }
         [Column("nome")]
         public String Nome{ get; set; }
+        [Column("idplace")]
+        public String IdPlace { get; set; }
     }
 }

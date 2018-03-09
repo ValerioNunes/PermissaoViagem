@@ -1,4 +1,5 @@
 ﻿using PermissaoViagem.DAL;
+using PermissaoViagem.Extensions;
 using PermissaoViagem.Models;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,23 @@ namespace PermissaoViagem.Controllers
                                                                                 .Include(s => s.AprovadorSolicitacaoId)
                                                                                 .Include(s => s.ViajanteSolicitacaoId).ToList();
             FillObjects(solicitacaoviagem);
+
+            solicitacaoviagem.ForEach(x => {
+                AprovadorSolicitacao StatusAnterior = x.AprovadorSolicitacaoId.FirstOrDefault();
+
+                if ((StatusAnterior.Status.Id == 1) && (x.DataPartida.ToUniversalTime() <= DateTime.Now.ToUniversalTime()))
+                {
+                    AprovadorSolicitacao StatusNovo = new AprovadorSolicitacao();
+                    StatusNovo.SolicitacaoViagemId = x.Id;
+                    StatusNovo.StatusId = 6;
+                    StatusNovo.AprovadorId = StatusAnterior.AprovadorId;
+                    StatusNovo.DataStatus = DateTime.Now;
+                    db.AprovadorSolicitacao.Add(StatusNovo);
+                    db.SaveChanges();
+                }
+            });
+
+            FillObjects(solicitacaoviagem);
             var minhasSolicitacoes = solicitacaoviagem.Where(x => x.EmpregadoId == id ||
                                                              x.ViajanteSolicitacaoId.Select(y => y.EmpregadoId).Contains(id) || x.AprovadorSolicitacaoId.Select(k => k.Aprovador.Empregado.Id).Contains(id)).ToList();
 
@@ -45,8 +63,10 @@ namespace PermissaoViagem.Controllers
                 minhaSolicitacao.Aprovador = x.AprovadorSolicitacaoId.FirstOrDefault().Aprovador.Empregado.Nome;
                 minhaSolicitacao.Chegada = x.DataChegadaPrevista;
                 minhaSolicitacao.Partida = x.DataPartida;
-                minhaSolicitacao.Origem = x.Origem.Nome;
+                minhaSolicitacao.Origem  = x.Origem.Nome;
                 minhaSolicitacao.Destino = x.Destino.Nome;
+                minhaSolicitacao.IdOrigemPlace  = x.Origem.IdPlace;
+                minhaSolicitacao.IdDestinoPlace = x.Destino.IdPlace;
                 minhaSolicitacao.Solicitante = x.Empregado.Nome;
                 minhaSolicitacao.Transporte = x.Transporte.Nome;
                 minhaSolicitacao.Status = x.AprovadorSolicitacaoId.FirstOrDefault().Status.Nome;

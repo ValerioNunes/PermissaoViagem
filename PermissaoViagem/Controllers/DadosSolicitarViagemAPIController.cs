@@ -35,15 +35,15 @@ namespace PermissaoViagem.Controllers
                 return NotFound();
             }
 
-            DadosSolicitarViagem dados = new DadosSolicitarViagem();
+            DadosSolicitarViagemViewModel dados = new DadosSolicitarViagemViewModel();
             dados.Aprovador = db.Empregados.Where(x => (x.Gerencia.Equals(empregado.Gerencia) &&
-                                               (x.NivelGerencial.Equals("Manager")) || (x.Supervisao.Equals(empregado.Supervisao) && x.NivelGerencial.Equals("Supervisor")))
-                                               && db.Aprovadores.Select(y => y.EmpregadoId).ToList().Contains(x.Id)).ToList(); dados.Solicitante = empregado;
+                                                 (x.NivelGerencial.Equals("Manager")) || 
+                                                 (x.Supervisao.Equals(empregado.Supervisao) && 
+                                                  x.NivelGerencial.Equals("Supervisor")))
+                                                  && db.Aprovadores.Select(y => y.EmpregadoId).ToList().Contains(x.Id)).ToList(); dados.Solicitante = empregado;
             dados.Local = db.Locals.ToList();
             dados.Transporte = db.Transportes.ToList();
             dados.Status = db.Status.ToList();
-
-
 
             return Json(dados);
         }

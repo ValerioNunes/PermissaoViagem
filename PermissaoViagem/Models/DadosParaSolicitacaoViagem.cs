@@ -8,8 +8,10 @@ namespace PermissaoViagem.Models
     public class DadosParaSolicitacaoViagem
     {
         public int Aprovador; 
-        public int Origem;
-        public int Destino;
+        public String Origem;
+        public String Destino;
+        public String IdOrigemPlace;
+        public String IdDestinoPlace;
         public int Solicitante;
         public int Transporte;
 

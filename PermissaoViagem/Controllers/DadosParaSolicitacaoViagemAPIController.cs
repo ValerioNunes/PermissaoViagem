@@ -29,12 +29,12 @@ namespace PermissaoViagem.Controllers
         {
 
             List<SolicitacaoViagem> solicitacaoViagem = db.SolicitacaoViagems.Where(x => x.Id == id)
-                                                                                .Include(s => s.Destino)
-                                                                                .Include(s => s.Origem)
-                                                                                .Include(s => s.Transporte)
-                                                                                .Include(s => s.Empregado)
-                                                                                .Include(s => s.AprovadorSolicitacaoId)
-                                                                                .Include(s => s.ViajanteSolicitacaoId).ToList();
+                                                                            .Include(s => s.Destino)
+                                                                            .Include(s => s.Origem)
+                                                                            .Include(s => s.Transporte)
+                                                                            .Include(s => s.Empregado)
+                                                                            .Include(s => s.AprovadorSolicitacaoId)
+                                                                            .Include(s => s.ViajanteSolicitacaoId).ToList();
 
             if (solicitacaoViagem.FirstOrDefault() == null)
             {
@@ -66,8 +66,32 @@ namespace PermissaoViagem.Controllers
                     solicitacaoViagem.DataChegadaPrevista = DateTime.Parse(dados.Chegada);
 
 
-                    solicitacaoViagem.DestinoId = dados.Destino;
-                    solicitacaoViagem.OrigemId = dados.Origem;
+
+                    Local origem = db.Locals.Where(x => x.IdPlace.Equals(dados.Origem)).FirstOrDefault();
+                    if(origem == null)
+                    {
+                            origem   = new Local();              
+                            origem.Nome = dados.Origem;
+                            origem.IdPlace = dados.IdOrigemPlace;
+                            db.Locals.Add(origem);
+                    }
+                    
+
+                    Local destino = db.Locals.Where(x => x.IdPlace.Equals(dados.Destino)).FirstOrDefault();
+                    if (destino == null)
+                    {
+                        destino = new Local();
+                        destino.Nome = dados.Destino;
+                        destino.IdPlace = dados.IdDestinoPlace;
+                        db.Locals.Add(destino);
+                    }
+
+                    db.SaveChanges();
+
+
+                    solicitacaoViagem.DestinoId = destino.Id;
+                    solicitacaoViagem.OrigemId  = origem.Id;
+
                     solicitacaoViagem.TransporteId = dados.Transporte;
                     solicitacaoViagem.EmpregadoId = dados.Solicitante;
 

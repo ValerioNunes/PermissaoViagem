@@ -11,6 +11,8 @@ namespace PermissaoViagem.Models
         public String Aprovador { get; set; }
         public String Origem { get; set; }
         public String Destino { get; set; }
+        public String IdOrigemPlace { get; set; }
+        public String IdDestinoPlace { get; set; }
         public String Transporte { get; set; }
         public DateTime Partida { get; set; }
         public DateTime Chegada { get; set; }

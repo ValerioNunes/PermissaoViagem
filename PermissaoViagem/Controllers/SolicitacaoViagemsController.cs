@@ -12,6 +12,7 @@ using PermissaoViagem.Extension;
 using PermissaoViagem.Extensions;
 using PermissaoViagem.Models;
 
+
 namespace PermissaoViagem.Controllers
 {
     public class SolicitacaoViagemsController : Controller
@@ -21,12 +22,16 @@ namespace PermissaoViagem.Controllers
         // GET: SolicitacaoViagems
         public ActionResult Index()
         {
+
+         
             var solicitacaoViagems = db.SolicitacaoViagems.Include(s => s.Destino)
                                                           .Include(s => s.Origem)
                                                           .Include(s => s.Transporte)
                                                           .Include(s => s.Empregado)
                                                           .Include(s => s.AprovadorSolicitacaoId)
                                                           .Include(s => s.ViajanteSolicitacaoId).ToList();
+
+
             FillObjects(solicitacaoViagems);
             return View(solicitacaoViagems.ToList());
         }
